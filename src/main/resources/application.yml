@@ -1,0 +1,19 @@
+server:
+  port: 8082
+
+spring:
+  datasource:
+    url: jdbc:postgresql://moa-dev.cesg5btcp4wp.us-west-2.rds.amazonaws.com:5432/auth
+    username: dbmoa
+    password: dbmoa123
+    driverClassName: org.postgresql.Driver
+    validationQuery: "SELECT 1"
+  jpa:
+    properties:
+      hibernate:
+        show-sql: false
+        use_sql_comments: false
+        format_sql: false
+  sql:
+    init:
+      platform: postgres
