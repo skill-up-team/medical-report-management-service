@@ -1,4 +1,4 @@
-package com.skillup.medicalreportmanagement.entities;
+package com.skillup.medicalreportmanagement.entity;
 
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -7,12 +7,12 @@ import lombok.ToString;
 @Entity
 @Builder
 @ToString
-@Table(name="diagnosis")
-public class Diagnosis {
+@Table(name="lab_report")
+public class LabReport {
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    private Integer doctorAppointmentId;
-    private String description;
-
+    private Integer labAppointmentId;
+    private String testResults;
 }
