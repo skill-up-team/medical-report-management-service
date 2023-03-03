@@ -9,11 +9,12 @@ spring:
     driverClassName: org.postgresql.Driver
     validationQuery: "SELECT 1"
   jpa:
-    properties:
+      generate-ddl: true
       hibernate:
         show-sql: false
         use_sql_comments: false
         format_sql: false
+        ddl-auto: update
   sql:
     init:
       platform: postgres
