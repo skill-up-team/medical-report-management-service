@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DiagnosisDto {
+public class LabReportDto {
 
-    private Integer diagnosisId;
-    @NotBlank(message = "Description cannot be empty")
-    private String diagnosisDescription;
-    @NotNull(message = "Doctor appointment cannot be null")
-    private Integer doctorAppointmentId;
+    private Integer labReportId;
+    @NotNull(message = "Appointment id cannot be null")
+    private Integer labAppointmentId;
+    @NotBlank(message = "Lab test results cannot be empty")
+    private String labTestResults;
 }

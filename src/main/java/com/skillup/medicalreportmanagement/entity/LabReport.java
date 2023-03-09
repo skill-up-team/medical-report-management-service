@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class LabReport {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer labAppointmentId;
     private String testResults;
