@@ -26,16 +26,16 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(DiagnosisNotFoundException.class)
-    public final ResponseEntity<Object> handleDiagnosisNotFoundException(DiagnosisNotFoundException ex, WebRequest request) {
+    @ExceptionHandler(EntryNotFoundException.class)
+    public final ResponseEntity<Object> handleDiagnosisNotFoundException(EntryNotFoundException ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(),
                 request.getDescription(false), HttpStatus.NOT_FOUND);
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(DiagnosisExistException.class)
-    public final ResponseEntity<Object> handleDiagnosisExistException(DiagnosisExistException ex, WebRequest request) {
+    @ExceptionHandler(EntryExistException.class)
+    public final ResponseEntity<Object> handleDiagnosisExistException(EntryExistException ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(),
                 request.getDescription(false), HttpStatus.CONFLICT);
 
