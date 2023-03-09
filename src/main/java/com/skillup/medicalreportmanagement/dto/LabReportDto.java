@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class LabReportDto {
 
     private Integer labReportId;
-    @NotNull(message = "Appointment id cannot be null")
+    @NotNull(message = "Lab appointment id cannot be null")
     private Integer labAppointmentId;
     @NotBlank(message = "Lab test results cannot be empty")
     private String labTestResults;
