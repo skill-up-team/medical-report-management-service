@@ -37,6 +37,11 @@ public class DiagnosisService {
             throw new EntryNotFoundException("Diagnosis not found for the given diagnosis id: " + diagnosisDto.getDiagnosisId());
         }
 
+        Diagnosis diagnosisExistForAppointment = diagnosisRepository.findByDoctorAppointmentId(diagnosisDto.getDoctorAppointmentId());
+        if(diagnosisExistForAppointment != null) {
+            throw new EntryExistException("Diagnosis record already exist for the given appointment id: " + diagnosisDto.getDoctorAppointmentId());
+        }
+
         Diagnosis diagnosis = entityDtoMapper.diagnosisDTOtoDiagnosis(diagnosisDto);
 
         return  entityDtoMapper.diagnosisToDiagnosisDTO(diagnosisRepository.save(diagnosis));
