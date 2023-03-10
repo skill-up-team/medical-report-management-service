@@ -13,9 +13,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LabReportDto {
 
+    public interface Create {}
+    public interface Update {}
+
+    @NotNull(message = "Lab report id cannot be null",groups = {Update.class})
     private Integer labReportId;
-    @NotNull(message = "Lab appointment id cannot be null")
+    @NotNull(message = "Lab appointment id cannot be null", groups = {Create.class, Update.class})
     private Integer labAppointmentId;
-    @NotBlank(message = "Lab test results cannot be empty")
+    @NotBlank(message = "Lab test results cannot be empty", groups = {Create.class, Update.class})
     private String labTestResults;
 }

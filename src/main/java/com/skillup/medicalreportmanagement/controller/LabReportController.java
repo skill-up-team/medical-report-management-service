@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,12 +17,12 @@ public class LabReportController {
     private LabReportService labReportService;
 
     @PostMapping
-    public ResponseEntity<LabReportDto> createLabReport(@RequestBody @Valid LabReportDto labReportDto) {
+    public ResponseEntity<LabReportDto> createLabReport(@RequestBody @Validated({LabReportDto.Create.class}) LabReportDto labReportDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(labReportService.createLabReport(labReportDto));
     }
 
     @PutMapping
-    public ResponseEntity<LabReportDto> updateLabReport(@RequestBody @Valid LabReportDto labReportDto) {
+    public ResponseEntity<LabReportDto> updateLabReport(@RequestBody @Validated({LabReportDto.Update.class}) LabReportDto labReportDto) {
         return ResponseEntity.ok(labReportService.updateLabReport(labReportDto));
     }
 
