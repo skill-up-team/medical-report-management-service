@@ -1,19 +1,22 @@
 package com.skillup.medicalreportmanagement.exception;
 
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Log4j2
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
@@ -45,8 +48,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(exceptionResponse, HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public final ResponseEntity<Object> handleInvalidArgument(MethodArgumentNotValidException ex, WebRequest request) {
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         List<ErrorField> errorList = ex.getBindingResult().getFieldErrors().stream().map(
                         fieldError -> ErrorField.builder()
                                 .fieldName(fieldError.getField())
@@ -55,12 +58,13 @@ public class GlobalExceptionHandler {
                                 .toList();
 
         ExceptionResponse exceptionResponse = ExceptionResponse.builder().timestamp(LocalDateTime.now())
-                .message(ex.getMessage()).details(request.getDescription(false))
+                .message("One or more validation errors occurred.")
+                .details(request.getDescription(false))
                 .fieldErrors(errorList)
-                .httpStatus(HttpStatus.BAD_REQUEST)
+                .httpStatus(HttpStatus.valueOf(status.value()))
                 .build();
 
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exceptionResponse, status);
     }
 
 }
