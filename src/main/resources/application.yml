@@ -1,19 +1,24 @@
+api:
+  current:
+    version: v1
+
 server:
   port: 8082
 
 spring:
   datasource:
-    url: jdbc:postgresql://moa-dev.cesg5btcp4wp.us-west-2.rds.amazonaws.com:5432/auth
-    username: dbmoa
-    password: dbmoa123
+    url: jdbc:postgresql://localhost:5432/medical-report-management
+    username: skill_up_admin
+    password: Skillup1234
     driverClassName: org.postgresql.Driver
     validationQuery: "SELECT 1"
   jpa:
-    properties:
+      generate-ddl: true
       hibernate:
         show-sql: false
         use_sql_comments: false
         format_sql: false
+        ddl-auto: update
   sql:
     init:
       platform: postgres
