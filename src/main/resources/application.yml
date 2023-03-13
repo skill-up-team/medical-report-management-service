@@ -4,6 +4,8 @@ api:
 
 server:
   port: 8082
+  servlet:
+    context-path: /medical-report-management-service
 
 spring:
   datasource:
@@ -22,3 +24,8 @@ spring:
   sql:
     init:
       platform: postgres
+
+  # swagger-ui custom path
+  springdoc:
+    swagger-ui:
+      path: /swagger-ui.html
