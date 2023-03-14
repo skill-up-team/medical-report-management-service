@@ -37,10 +37,10 @@ public class LabReportService {
             throw new EntryNotFoundException("Lab report not found for the given lab report id: " + labReportDto.getLabReportId());
         }
 
-        LabReport labReportExistForAppointment = labReportRepository.findByLabAppointmentId(labReportDto.getLabAppointmentId());
-        if(labReportExistForAppointment != null) {
-            throw new EntryExistException("Lab report already exist for the given lab appointment id: " + labReportDto.getLabAppointmentId());
-        }
+//        LabReport labReportExistForAppointment = labReportRepository.findByLabAppointmentId(labReportDto.getLabAppointmentId());
+//        if(labReportExistForAppointment != null) {
+//            throw new EntryExistException("Lab report already exist for the given lab appointment id: " + labReportDto.getLabAppointmentId());
+//        }
 
         LabReport labReport = entityDtoMapper.labReportDTOtoLabReport(labReportDto);
 
