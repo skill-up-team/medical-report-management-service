@@ -9,6 +9,7 @@ import com.skillup.medicalreportmanagement.repository.LabReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -37,10 +38,13 @@ public class LabReportService {
             throw new EntryNotFoundException("Lab report not found for the given lab report id: " + labReportDto.getLabReportId());
         }
 
-//        LabReport labReportExistForAppointment = labReportRepository.findByLabAppointmentId(labReportDto.getLabAppointmentId());
-//        if(labReportExistForAppointment != null) {
-//            throw new EntryExistException("Lab report already exist for the given lab appointment id: " + labReportDto.getLabAppointmentId());
-//        }
+        if(!Objects.equals(labReportExist.get().getLabAppointmentId(), labReportDto.getLabAppointmentId())) {
+            LabReport labReportExistForAppointment = labReportRepository.findByLabAppointmentId(labReportDto.getLabAppointmentId());
+
+            if(labReportExistForAppointment != null) {
+                throw new EntryExistException("Diagnosis record already exist for the given appointment id: " + labReportDto.getLabAppointmentId());
+            }
+        }
 
         LabReport labReport = entityDtoMapper.labReportDTOtoLabReport(labReportDto);
 
