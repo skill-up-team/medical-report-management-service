@@ -9,6 +9,7 @@ import com.skillup.medicalreportmanagement.repository.DiagnosisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -37,9 +38,12 @@ public class DiagnosisService {
             throw new EntryNotFoundException("Diagnosis not found for the given diagnosis id: " + diagnosisDto.getDiagnosisId());
         }
 
-        Diagnosis diagnosisExistForAppointment = diagnosisRepository.findByDoctorAppointmentId(diagnosisDto.getDoctorAppointmentId());
-        if(diagnosisExistForAppointment != null) {
-            throw new EntryExistException("Diagnosis record already exist for the given appointment id: " + diagnosisDto.getDoctorAppointmentId());
+        if(!Objects.equals(diagnosisExist.get().getDoctorAppointmentId(), diagnosisDto.getDoctorAppointmentId())) {
+            Diagnosis diagnosisExistForAppointment = diagnosisRepository.findByDoctorAppointmentId(diagnosisDto.getDoctorAppointmentId());
+
+            if(diagnosisExistForAppointment != null) {
+                throw new EntryExistException("Diagnosis record already exist for the given appointment id: " + diagnosisDto.getDoctorAppointmentId());
+            }
         }
 
         Diagnosis diagnosis = entityDtoMapper.diagnosisDTOtoDiagnosis(diagnosisDto);
